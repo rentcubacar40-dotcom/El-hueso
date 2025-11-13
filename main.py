@@ -14,9 +14,12 @@ async def start(update: Update, context):
     user = update.effective_user
     await update.message.reply_text(f"🤖 Hola {user.first_name}! Bot activo en Choreo")
 
+async def help_cmd(update: Update, context):
+    await update.message.reply_text("Comandos:\n/start - Iniciar\n/help - Ayuda\n/status - Estado del bot")
+
 async def status(update: Update, context):
     try:
-        # Información básica que SÍ funciona en Choreo
+        logger.info("Comando /status recibido")
         status_message = (
             "**📈 ESTADO DEL BOT**\n\n"
             f"✅ **Bot**: Activo y funcionando\n"
@@ -25,11 +28,10 @@ async def status(update: Update, context):
             f"📊 **Estado**: Online\n\n"
             "✨ Todos los sistemas operativos correctamente"
         )
-        
         await update.message.reply_text(status_message)
-        
     except Exception as e:
-        await update.message.reply_text(f"❌ Error: {str(e)}")
+        logger.error(f"Error en status: {e}")
+        await update.message.reply_text("✅ Bot funciona, pero hubo error en status")
 
 async def echo(update: Update, context):
     text = update.message.text
@@ -39,7 +41,8 @@ def main():
     app = Application.builder().token(TOKEN).build()
     
     app.add_handler(CommandHandler("start", start))
-    app.add_handler(CommandHandler("status", status))
+    app.add_handler(CommandHandler("help", help_cmd))
+    app.add_handler(CommandHandler("status", status))  # ✅ ESTA LÍNEA ES IMPORTANTE
     app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, echo))
     
     logger.info("Bot iniciado...")
