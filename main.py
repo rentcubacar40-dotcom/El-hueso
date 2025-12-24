@@ -9,7 +9,7 @@ import shutil
 from collections import defaultdict
 
 # Configuración
-API_TOKEN = '8562042457:AAGA__pfWDMVfdslzqwnoFl4yLrAre-HJ5I'  # Reemplaza con tu token de bot
+API_TOKEN = '8559990136:AAGEKdwIqiUVOr3h5eqK5eRNR4PGup0Veg8'  # Reemplaza con tu token de bot
 bot = telebot.TeleBot(API_TOKEN)
 
 # Almacenamiento en memoria (para producción usa Redis o base de datos)
